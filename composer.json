@@ -1,0 +1,31 @@
+{
+    "name": "jiny/router",
+    "description": "jiny router",
+    "keywords": [
+        "jiny",
+        "framwork",
+        "router"
+    ],
+    "homepage": "http://jiny.hojin.io",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hojinlee",
+            "email": "infohojin@gmail.com",
+            "homepage": "http://hojin.io"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">= 7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jiny\\Router\\": "src/"
+        },
+        "files": [
+            "src/Helper/helpers.php"
+        ] 
+    }
+}
