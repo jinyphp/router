@@ -60,14 +60,14 @@ class Routers
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
                 // ... 404 Not Found
-                echo "route ... 404 Not Found<br><br>";
+                //echo "route ... 404 Not Found<br><br>";
                 $this->App->run();
                 break;
 
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];
                 // ... 405 Method Not Allowed
-                echo "route ... 405 Method Not Allowed<br><br>";
+                //echo "route ... 405 Method Not Allowed<br><br>";
                 $this->App->run();
                 break;
 
@@ -97,8 +97,6 @@ class Routers
      */
     function Dispatcher(callable $Callback, array $options = [])
     {
-        //$routeParser = new \Jiny\Core\Route\RouteParser\Standard;
-        // $DataGenerator = new \Jiny\Core\Route\DataGenerator\GroupCountBased;
         $routeCollector = new \Jiny\Router\RouteCollector();
 
         // 라우트를 정의작업
@@ -157,9 +155,6 @@ class Routers
         echo "커스텀 파일 읽어 옵니다.<br>";
         //include $filename.".php";
         echo $filename.".php";
-        
-        
-      
 
     }
 
