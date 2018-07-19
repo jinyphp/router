@@ -4,3 +4,14 @@
 
 사용자 커스텀 라우팅은 `app/router/web.php`에서 작성을 할 수 있습니다.
 
+
+## 뷰 호출
+바로 뷰를 호출 할 수 있습니다.
+
+```php
+$r->get('/post', function($vars=[]){
+    return view("/post", $vars);
+});
+```
+
+## 컨트롤러 호출

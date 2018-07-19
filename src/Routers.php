@@ -3,7 +3,7 @@
 namespace Jiny\Router;
 
 use \Jiny\Core\Registry\Registry;
-
+use \Jiny\Core\Base\File;
 
 //FastRoute Copy
 use \Jiny\Router\Dispatcher;
@@ -23,11 +23,11 @@ class Routers
     public $_viewFile;
     public $_param;
 
-    //public $dataGenerator;
     public function __construct($app)
     {
         \TimeLog::set(__CLASS__);
         $this->App = $app;
+        // echo "라우터 초기화<br>";
     }
 
     /**
@@ -38,9 +38,12 @@ class Routers
     {   
         // 콜백함수 선언
         $func = function($r) {
-            $filename = ".\app\Route\web.php";
-            $filename = str_replace("\\", DS, $filename);       
-            include $filename;
+
+            $filename = ROOT.conf("ENV.path.route").DS."web.php";     
+            $filename = File::path($filename);
+            if (file_exists($filename)) {
+                include $filename;
+            }            
         };
        
         // 라우터를 분석합니다.
@@ -61,14 +64,14 @@ class Routers
             case Dispatcher::NOT_FOUND:
                 // ... 404 Not Found
                 //echo "route ... 404 Not Found<br><br>";
-                $this->App->run();
+                return $this->App->run();
                 break;
 
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];
                 // ... 405 Method Not Allowed
                 //echo "route ... 405 Method Not Allowed<br><br>";
-                $this->App->run();
+                return $this->App->run();
                 break;
 
             case Dispatcher::FOUND:
@@ -76,12 +79,14 @@ class Routers
 
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
-                // ... call $handler with $vars
 
+                // 익명함수 호출
                 if(is_callable($handler)){
-                    $handler($vars);
-                } else {
-                    echo $handler;
+                    return $handler($vars);
+                } 
+                // 문자열
+                else if(is_string($vars)){
+                    return $handler;
                 }
 
                 break;
