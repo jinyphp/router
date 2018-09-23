@@ -13,27 +13,21 @@ use \Jiny\Router\Dispatcher\GroupCountBased;
  * 커스텀 라우트 파일을 찾아 읽어옵니다.
  */
 class Routers
-{
-    public $App;
-    
+{   
     private $_urlArr = [];
     private $_routeFile;
 
-    
     public $_viewFile;
     public $_param;
 
-    public function __construct($app)
+    public function __construct()
     {
-        \TimeLog::set(__CLASS__);
-        $this->App = $app;
-        // echo "라우터 초기화<br>";
+        // 
     }
 
     /**
      * 라우트 설정을 검사합니다.
      */
-
     public function routing()
     {   
         // 콜백함수 선언
@@ -58,44 +52,9 @@ class Routers
         }
         $uri = rawurldecode($uri);
 
-     
-        $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
-        switch ($routeInfo[0]) {
-            case Dispatcher::NOT_FOUND:
-                // ... 404 Not Found
-                //echo "route ... 404 Not Found<br><br>";
-                return $this->App->run();
-                break;
-
-            case Dispatcher::METHOD_NOT_ALLOWED:
-                $allowedMethods = $routeInfo[1];
-                // ... 405 Method Not Allowed
-                //echo "route ... 405 Method Not Allowed<br><br>";
-                return $this->App->run();
-                break;
-
-            case Dispatcher::FOUND:
-                // 라우터 처리동작
-
-                $handler = $routeInfo[1];
-                $vars = $routeInfo[2];
-
-                // 익명함수 호출
-                if(is_callable($handler)){
-                    return $handler($vars);
-                } 
-                // 문자열
-                else if(is_string($vars)){
-                    return $handler;
-                }
-
-                break;
-        }
+        return $dispatcher->dispatch($httpMethod, $uri);
 
     }
-
-    
-
 
     /**
      * 
@@ -131,8 +90,7 @@ class Routers
     }
 
     public function isRoute($arr)
-    {
-        // $base = "../app/route/";  
+    { 
         $base = ROOT.Registry::get("CONFIG")->data("ENV.path.route").DS;
         $base = str_replace("/",DS,$base);
      
