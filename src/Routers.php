@@ -1,5 +1,12 @@
 <?php
-
+/*
+ * This file is part of the jinyPHP package.
+ *
+ * (c) hojinlee <infohojin@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Jiny\Router;
 
 use \Jiny\Core\Registry\Registry;
@@ -20,10 +27,14 @@ class Routers
     public $_viewFile;
     public $_param;
 
+    /**
+     * 초기화
+     */
     public function __construct()
     {
         // 
     }
+
 
     /**
      * 라우트 설정을 검사합니다.
@@ -72,15 +83,20 @@ class Routers
     }
 
 
-
+    /**
+     * 
+     */
     public function root()
     {
         //echo "urls 가 비어 있습니다.";
     }
 
+
+    /**
+     * 
+     */
     public function parser($arr)
     {
-        //echo "routing parser";
         $path=$this->isRoute($arr);
 
         if (isset($this->_routeFile)) {      
@@ -89,6 +105,10 @@ class Routers
         } 
     }
 
+
+    /**
+     * 
+     */
     public function isRoute($arr)
     { 
         $base = ROOT.Registry::get("CONFIG")->data("ENV.path.route").DS;
@@ -107,7 +127,6 @@ class Routers
     }
 
 
-
     /**
      * 라우트 파일이 시스템에 영향이 없도록
      * 설정값 반환형태로 처리합니다.
@@ -121,6 +140,7 @@ class Routers
 
     }
 
+    
     /**
      * url에서 파라미터 값을 추출합니다.
      */

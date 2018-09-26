@@ -1,17 +1,21 @@
-# jiny Router
-
-지니프레임워크의 라우터 입니다. 지니 라우터는 `nikic/fast-route` 페키지를 기반으로 변경하여 작업이 되었습니다.
-
-사용자 커스텀 라우팅은 `app/router/web.php`에서 작성을 할 수 있습니다.
+# Router
+본 코드는 `PHP`언어로 작성된 `composer` 페키지 입니다. 또한 `jinyPHP` 프레임워크와 같이 동작을 합니다.
+지니PHP는 MVC 패턴의 웹프레임워크 입니다.
 
 
-## 뷰 호출
-바로 뷰를 호출 할 수 있습니다.
+## 설치방법
+composer를 통하여 설치를 진행할 수 있습니다.
 
 ```php
-$r->get('/post', function($vars=[]){
-    return view("/post", $vars);
-});
+composer require jiny/router
 ```
 
-## 컨트롤러 호출
+지니PHP 라우터는 `nikic/fast-route` 페키지를 기반으로 변경하여 작업이 되었습니다.
+
+
+## 소스경로
+모든 코드는 깃허브 저장소에 공개되어 있습니다.
+https://github.com/jinyphp/router
+
+누구나 코드를 포크하여 수정 및 개선사항을 기여(contrubution)할 수 있습니다.
+

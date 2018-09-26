@@ -1,8 +1,8 @@
 {
     "name": "jiny/router",
-    "description": "jiny router",
+    "description": "jinyPHP Router",
     "keywords": [
-        "jiny",
+        "jinyPHP",
         "framwork",
         "router"
     ],
