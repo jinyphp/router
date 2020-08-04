@@ -2,7 +2,7 @@
 
 namespace Jiny\Router;
 
-class Route
+class AppRoute
 {
     /** @var string */
     public $httpMethod;
