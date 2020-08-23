@@ -9,13 +9,16 @@ class JsonRoute
     private $table;
     private $Http;
     private $base = "../route";
-    public function __construct()
-    {
-        // echo __CLASS__;
-        $this->Http = \jiny\http();
-        // $this->load();
-    }
 
+    public function __construct($http=null)
+    {
+        if ($http) {
+            $this->Http = $http;
+        } else {
+            $this->Http = \jiny\http();
+        }        
+    }
+    
     /**
      * 라우터 설정파일 디렉토리 설정
      */
@@ -28,26 +31,31 @@ class JsonRoute
     /**
      * 파서를 실행합니다.
      */
-    public function main()
+    public function main($uri=null)
     {
-        $r = $this->parser();
+        $r = $this->parser($uri);
         return $r;
     }
 
     /**
      * uri 에 대한 json 파일을 찾습니다.
      */
-    public function parser()
+    public function parser($uri=null)
     {
-        $uri = $this->Http->endpoint()->uri();
-        $uri = \trim($uri,"/");
-        $uris =$this->Http->endpoint()->uris();
+        if (!$uri) {
+            $uri = $this->Http->endpoint()->uri();
+            $uri = \trim($uri,"/");
+            $uris =$this->Http->endpoint()->uris();
+        } else {
+            $uri = \trim($uri,"/");
+            $uris = \explode("/", $uri);
+        }
+
         $param = [];
         
         if(empty($uri)) {
             // root index
             $data = $this->load();
-            //return ["route"=>$data, "params"=>\array_reverse($param)];
             return new \Jiny\Router\Info($data);
         
         } else {
@@ -55,16 +63,18 @@ class JsonRoute
             for($i=count($uris); $i>0; $i--) {
                 $path = $this->uriPath($uris,$i);
                 if($data = $this->isRoute($path)) {
-                    //return ["route"=>$data, "params"=>\array_reverse($param)];
-                    return new \Jiny\Router\Info($data, \array_reverse($param));
+                    $params = \array_reverse($param);
+                    // printbr($params);
+                    return new \Jiny\Router\Info($data, $params);
                 } else {
                     \array_push($param, $uris[$i-1]);
                 }
             }
         }
 
-        print("라우터파일이 없습니다.");  
-        exit;   
+        return null;
+        // print("라우터파일이 없습니다.");  
+        // exit;   
     }
 
     /**

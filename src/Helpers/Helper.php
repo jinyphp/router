@@ -7,13 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+ /*
 use \Jiny\Core\Registry\Registry;
 
 if (! function_exists('controller')) {
-    /**
-     * 라우터에서
-     * 컨트롤러, 매소드를 실행합니다.
-     */
+    
+    // 라우터에서
+    // 컨트롤러, 매소드를 실행합니다.
     function controller($controller, $method="index", $param=[])
     {
         $name = "\App\Controllers\\".$controller;
@@ -23,6 +24,17 @@ if (! function_exists('controller')) {
         Registry::set("controller", $controller);
 
         return call_user_func([$controller, $method], $param);
+    }
+}
+*/
+
+namespace jiny;
+
+if (! function_exists('route')) {
+    function route()
+    {
+        $obj = \Jiny\Router\Route::instance();
+        return $obj;
     }
 }
 

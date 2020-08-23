@@ -7,10 +7,10 @@ namespace Jiny\Router;
 class Info
 {
     public $route;
-    public $params=[];
-    public function __construct($r, $p=[])
+    public $params = [];
+    public function __construct($r, $params=[])
     {
         $this->route = $r;
-        $this->params = $p;
+        $this->params = $params;
     }
 }
