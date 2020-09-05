@@ -33,8 +33,13 @@ class JsonRoute
      */
     public function main($uri=null)
     {
-        $r = $this->parser($uri);
-        return $r;
+        if (\is_dir($this->base)) {
+            $r = $this->parser($uri);
+            return $r;
+        } else {
+            echo "라우터 디렉토리가 존재하지 않습니다.";
+            exit;
+        }
     }
 
     /**
@@ -55,9 +60,10 @@ class JsonRoute
         
         if(empty($uri)) {
             // root index
-            $data = $this->load();
-            return new \Jiny\Router\Info($data);
-        
+            if($data = $this->load()) {
+                return new \Jiny\Router\Info($data);
+            }         
+            
         } else {
             //subdir    
             for($i=count($uris); $i>0; $i--) {
@@ -112,7 +118,10 @@ class JsonRoute
         if(file_exists($this->base."/".$filename)) {
             $file = \file_get_contents($this->base."/".$filename);
             return \json_decode($file);
-        } 
+        } else {
+            // 라우터 파일이 존재하지 않음.
+            return null;
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ class Route
      */
     public function enable()
     {
-        return $this->r->route->enable;
+        if(is_object($this->r)) return $this->r->route->enable;
     }
 
     public function actionType()
